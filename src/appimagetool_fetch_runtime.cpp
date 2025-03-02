@@ -258,7 +258,7 @@ public:
 
 bool fetch_runtime(char *arch, size_t *size, char **buffer, bool verbose) {
     std::ostringstream urlstream;
-    urlstream << "https://github.com/AppImage/type2-runtime/releases/download/continuous/runtime-" << arch;
+    urlstream << "https://github.com/VHSgunzo/uruntime/releases/latest/download/uruntime-appimage-squashfs-lite-" << arch;
     auto url = urlstream.str();
 
     std::cerr << "Downloading runtime file from " << url << std::endl;
