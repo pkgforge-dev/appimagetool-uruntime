@@ -300,8 +300,8 @@ bool fetch_runtime(char *arch, size_t *size, char **buffer, bool verbose) {
         std::copy(runtimeData.begin(), runtimeData.end(), *buffer);
 
         // Check if PATCH_URUNTIME environment variable is set
-        const char* patch_env = getenv("PATCH_URUNTIME");
-        if (patch_env != nullptr && strlen(patch_env) > 0) {
+        const char* patch_env = getenv("URUNTIME_PRELOAD");
+        if (patch_env != nullptr && strlen(patch_env) > 0 && (patch_env == "true" || patch_env == "1" || patch_env == "True" || patch_env == "TRUE")) {
             std::cerr << "PATCH_URUNTIME is set, patching runtime file..." << std::endl;
             
             // Convert buffer to string for easier manipulation
