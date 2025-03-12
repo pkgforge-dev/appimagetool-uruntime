@@ -298,6 +298,30 @@ bool fetch_runtime(char *arch, size_t *size, char **buffer, bool verbose) {
 
         std::copy(runtimeData.begin(), runtimeData.end(), *buffer);
 
+        // Check if PATCH_URUNTIME environment variable is set
+        const char* patch_env = getenv("PATCH_URUNTIME");
+        if (patch_env != nullptr && strlen(patch_env) > 0) {
+            std::cerr << "PATCH_URUNTIME is set, patching runtime file..." << std::endl;
+            
+            // Convert buffer to string for easier manipulation
+            std::string content(*buffer, *size);
+            
+            // Find and replace URUNTIME_MOUNT=[0-9] with URUNTIME_MOUNT=0
+            size_t pos = 0;
+            const std::string search = "URUNTIME_MOUNT=";
+            
+            while ((pos = content.find(search, pos)) != std::string::npos) {
+                pos += search.length();
+                if (pos < content.length() && content[pos] >= '0' && content[pos] <= '9') {
+                    content[pos] = '0';
+                }
+            }
+            
+            // Copy the modified content back to the buffer
+            std::copy(content.begin(), content.end(), *buffer);
+            
+            std::cerr << "Runtime file patched successfully" << std::endl;
+        }
         return true;
     } catch (const CurlException& e) {
         std::cerr << "libcurl error: " << e.what() << std::endl;
