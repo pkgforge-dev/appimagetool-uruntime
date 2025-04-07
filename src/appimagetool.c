@@ -163,6 +163,8 @@ int sfs_mksquashfs(char *source, char *destination, int offset) {
              */
             args[i++] = "-b";
             args[i++] = "128K";
+            args[i++] = "-Xcompression-level";
+            args[i++] = "22";
         }
 
         // check if ignore file exists and use it if possible
