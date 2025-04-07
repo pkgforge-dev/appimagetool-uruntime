@@ -156,13 +156,18 @@ int sfs_mksquashfs(char *source, char *destination, int offset) {
             args[i++] = "16384";
         } else if (strcmp(sqfs_comp, "zstd") == 0) {
             /*
-             * > Build with default 128K block size
+             * > Build with default 1M block size since this appimagetool is only meant to be used with small appimages
+             * > 1M blocks add a significant delay to the startup time of the application, but this only matters for appimages
+             * > bigger than 100 MiB, AT WHICH POINT YOU BETTER USE THE DWARFS URUNTIME INSTEAD
+
              * > It used to be 1M but that actually causes much higher startup times.
              * > Some testing might be needed to see if there is some other value that actually improves performance.
              * -- https://github.com/AppImage/appimagetool/issues/64
              */
             args[i++] = "-b";
-            args[i++] = "128K";
+            args[i++] = "1M";
+            args[i++] = "-Xcompression-level";
+            args[i++] = "22";
         }
 
         // check if ignore file exists and use it if possible
