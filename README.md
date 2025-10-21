@@ -1,3 +1,12 @@
+# DO NOT USE!
+
+Unless you really want to use the squashfs uruntime, there is no real reason to use this appimagetool, it only supports squashfs.
+
+Use the DWARFS uruntime, **it is a lot better in every single measurable way**, you can use this [script instead](https://github.com/pkgforge-dev/Anylinux-AppImages/blob/main/useful-tools/uruntime2appimage.sh) for that.
+
+---
+
+
 This is a fork of [AppImage/appimagetool](https://github.com/AppImage/appimagetool) that uses the squashfs [uruntime](https://github.com/VHSgunzo/uruntime) instead of the [type2-runtime](https://github.com/AppImage/type2-runtime) by default.
 
 The uruntime is fully compatible to with the type2-runtime and offers advatnages such as:
